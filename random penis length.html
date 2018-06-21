@@ -11,7 +11,8 @@
 function titit()
 {
 	var length = Math.floor((Math.random()*10)+1);
-	document.getElementById("demo").innerHTML = "HAHAHAHAHAHAHAHA YOUR PENISE SIZE IS "+length+" CENTIMETER!!";
+	var str = "HAHAHAHAHAHAHAHA YOUR PENISE SIZE IS "+length+" CENTIMETER!!\n";
+	document.getElementById("demo").appendChild(document.createTextNode(str));
 	
 }
 </script>
