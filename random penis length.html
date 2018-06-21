@@ -3,19 +3,38 @@
 <h1>Welcome to Penis Seer!</h1>
 <p>press this button if you brave enough!</p><br/>
 <button id="myButton" onclick="titit()"> BITCH PLEASE </button>
+<h2 id="record"></h2>
 <h1 id="demo"></h1>
 
-
-
 <script>
+var longest = 0;
+var shortest = 10;
 function titit()
 {
+	var temp;
 	var br = document.createElement("br");
 	var length = Math.floor((Math.random()*10)+1);
+	
+	if(longest <= length)
+	{
+		longest = length;
+	};
+	 
+	if(shortest >= length)
+	{
+		shortest = length;
+	};
+	
 	var str = "HAHAHAHAHAHAHAHA YOUR PENISE SIZE IS "+length+" CENTIMETER!!";
+	
+	var str2 = "Longest Penis = "+longest+"cm"+"  Shortest Penis = "+shortest+"cm";
+	
+	
 	document.getElementById("demo").appendChild(document.createTextNode(str));
 	document.getElementById("demo").appendChild(br);
+	document.getElementById("record").innerHTML = str2;
 }
+
 </script>
 </body>
 </html>
