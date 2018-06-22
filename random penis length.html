@@ -6,7 +6,6 @@
 <button id="ascendingButton" onclick="sortAscending()" style="visibility:hidden;"> Ascending </button>
 <button id="descendingButton" onclick="sortDescending()" style="visibility:hidden;"> Descending </button>
 <h2 id="record"></h2>
-<h1 id="sorted"></h1>
 <h1 id="demo"></h1>
 
 <script>
@@ -14,15 +13,13 @@ var longest = 0;
 var shortest = 10;
 var arraystr=[];
 var demo=document.getElementById("demo");
-var sorted=document.getElementById("sorted");
+var sortFlag;
 
 function titit()
 {
 	var temp;
 	var length = Math.floor((Math.random()*9)+1);
 	var br = document.createElement("br");
-	demo.style.display='inline';
-	sorted.style.display='none';
 	
 	if(longest <= length)
 	{
@@ -38,9 +35,21 @@ function titit()
 	
 	var str2 = "Longest Penis = "+longest+"cm"+"  Shortest Penis = "+shortest+"cm";
 	
+	if(sortFlag==0)
+	{
+		arraystr.sort();
+		sortFlag=3;
+	}
+	else if (sortFlag==1)
+	{
+		arraystr.sort();
+		arraystr.reverse();
+		sortFlag=3;
+	}
+	
 	arraystr.push(str+'<br />');
-	demo.appendChild(document.createTextNode(str));
-	demo.appendChild(br);
+	demo.innerHTML = arraystr.join("");
+	
 	document.getElementById("record").innerHTML = str2;
 	document.getElementById("ascendingButton").style.visibility='visible';
 	document.getElementById("descendingButton").style.visibility='visible';
@@ -50,20 +59,18 @@ function titit()
 	
 function sortAscending()
 {
-	demo.style.display='none';
-	sorted.style.display='inline';
+	sortFlag=0;
 	arraystr.sort();
-	sorted.innerHTML = arraystr.join("");
+	demo.innerHTML = arraystr.join("");
 }
 
 
 function sortDescending()
 {
-	demo.style.display='none';
-	sorted.style.display='inline';
+	sortFlag=1;
 	arraystr.sort();
 	arraystr.reverse();
-	sorted.innerHTML = arraystr.join("");
+	demo.innerHTML = arraystr.join("");
 }
 
 </script>
