@@ -84,11 +84,55 @@ function bubbleSort()
 		}
 	}
 }
+
+function insertionSort()
+{
+	var i;
+	var j;
+	var k;
+	for(i = 0; i < arraystr.length; i++)
+	{
+		for (j = 0; j < arraystr.length; j++)      
+		{
+			var temp = arraystr[j];
+			for (k = j - 1; k > -1 && arraystr[k] > arraystr[j]; k--) 
+			{
+				arraystr[k+1] = arraystr[k];
+			}
+			arraystr[k+1] = temp
+		}
+	}
+}
+
+function selectionSort()
+{
+	var minimal;
+	var i;
+	var j;
+	for(i = 0; i < arraystr.length; i++)
+	{
+		minimal = i;
+		for(j = i+1; j < arraystr.length; j++)
+		{
+			if(arraystr[j] < arraystr[minimal])
+			{
+				minimal = j;
+			}
+		}
+		if(i != minimal)
+		{
+			var a = arraystr[i];
+			var b = arraystr[minimal];
+			arraystr[i] = b;
+			arraystr[minimal] = a;
+		}
+	}
+}
 	
 function sortAscending()
 {
 	sortFlag=0;
-	bubbleSort();
+	insertionSort();
 	demo.innerHTML = arraystr.join("");
 }
 
@@ -96,7 +140,7 @@ function sortAscending()
 function sortDescending()
 {
 	sortFlag=1;
-	bubbleSort();
+	selectionSort();
 	arraystr.reverse();
 	demo.innerHTML = arraystr.join("");
 }
