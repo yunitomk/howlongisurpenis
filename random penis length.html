@@ -44,12 +44,12 @@ function titit()
 	
 	if(sortFlag==0)
 	{
-		arraystr.sort();
+		bubbleSort();
 		sortFlag=3;
 	}
 	else if (sortFlag==1)
 	{
-		arraystr.sort();
+		bubbleSort();
 		arraystr.reverse();
 		sortFlag=3;
 	}
@@ -66,11 +66,29 @@ function titit()
 }
 
 
+function bubbleSort()
+{
+	var i;
+	var j;
+	for (i = 0; i < arraystr.length-1; i++)      
+	{
+		for (j = 0; j < arraystr.length-i-1; j++) 
+		{
+		if (arraystr[j] > arraystr[j+1])
+			{
+				var a = arraystr[j];
+				var b = arraystr[j+1];
+				arraystr[j]=b;
+				arraystr[j+1]=a;
+			}
+		}
+	}
+}
 	
 function sortAscending()
 {
 	sortFlag=0;
-	arraystr.sort();
+	bubbleSort();
 	demo.innerHTML = arraystr.join("");
 }
 
@@ -78,7 +96,7 @@ function sortAscending()
 function sortDescending()
 {
 	sortFlag=1;
-	arraystr.sort();
+	bubbleSort();
 	arraystr.reverse();
 	demo.innerHTML = arraystr.join("");
 }
