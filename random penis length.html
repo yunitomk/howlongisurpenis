@@ -3,16 +3,23 @@
 <h1>Welcome to Penis Seer!</h1>
 <p>press this button if you brave enough!</p><br/>
 <button id="myButton" onclick="titit()"> BITCH PLEASE </button>
+<div id="searchBar" style="visibility:hidden;">
+	<input type="text" placeholder="Search Penis Length" name="search" id="searchVal">
+    <button type="submit" onclick = "searchNum()">FIND</button>
+</div>
 <button id="ascendingButton" onclick="sortAscending()" style="visibility:hidden;"> Ascending </button>
 <button id="descendingButton" onclick="sortDescending()" style="visibility:hidden;"> Descending </button>
 <h2 id="record"></h2>
 <h1 id="demo"></h1>
+<h1 id="searchOut"></h1>
 
 <script>
 var longest = 0;
 var shortest = 10;
 var arraystr=[];
+var arraySrch=[];
 var demo=document.getElementById("demo");
+var searchOut=document.getElementById("searchOut");
 var sortFlag;
 
 function titit()
@@ -51,8 +58,11 @@ function titit()
 	demo.innerHTML = arraystr.join("");
 	
 	document.getElementById("record").innerHTML = str2;
+	demo.style.display='inline';
+	searchOut.style.display='none';
 	document.getElementById("ascendingButton").style.visibility='visible';
 	document.getElementById("descendingButton").style.visibility='visible';
+	document.getElementById("searchBar").style.visibility='visible';
 }
 
 
@@ -71,6 +81,25 @@ function sortDescending()
 	arraystr.sort();
 	arraystr.reverse();
 	demo.innerHTML = arraystr.join("");
+}
+
+
+function searchNum()
+{
+	demo.style.display='none';
+	searchOut.style.display='inline';
+	document.getElementById("ascendingButton").style.visibility='hidden';
+	document.getElementById("descendingButton").style.visibility='hidden';
+	var input=document.getElementById("searchVal").value;
+	for(var i = 0; i < arraystr.length; i++)
+	{
+		if(arraystr[i].indexOf(input) != -1)
+		{
+			arraySrch.push(arraystr[i]);
+		}
+	}
+	searchOut.innerHTML = arraySrch.join("");
+	arraySrch = [];
 }
 
 </script>
