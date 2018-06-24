@@ -9,6 +9,7 @@
 </div>
 <button id="ascendingButton" onclick="sortAscending()" style="visibility:hidden;"> Ascending </button>
 <button id="descendingButton" onclick="sortDescending()" style="visibility:hidden;"> Descending </button>
+<button id="popButton" onclick="queuePop()" style="visibility:hidden;"> Pop! </button>
 <h2 id="record"></h2>
 <h1 id="demo"></h1>
 <h1 id="searchOut"></h1>
@@ -55,14 +56,36 @@ function titit()
 	}
 	
 	arraystr.push(str+'<br />');
+	
+	if(arraystr.length > 1)
+	{
+		var a=arraystr[arraystr.length-1];
+		for(var i = arraystr.length-1; i > 0; i--)
+		{
+			arraystr[i]=arraystr[i-1];
+		}
+		arraystr[0]=a;
+	}
+	arraystr.reverse();
 	demo.innerHTML = arraystr.join("");
+	arraystr.reverse();
 	
 	document.getElementById("record").innerHTML = str2;
 	demo.style.display='inline';
 	searchOut.style.display='none';
 	document.getElementById("ascendingButton").style.visibility='visible';
 	document.getElementById("descendingButton").style.visibility='visible';
+	document.getElementById("popButton").style.visibility='visible';
 	document.getElementById("searchBar").style.visibility='visible';
+}
+
+
+function queuePop()
+{
+	arraystr.splice(-1,1);
+	arraystr.reverse();
+	demo.innerHTML = arraystr.join("");
+	arraystr.reverse();
 }
 
 
