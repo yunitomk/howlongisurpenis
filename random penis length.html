@@ -89,6 +89,38 @@ function queuePop()
 }
 
 
+function merge(left,right)
+{
+	var coba = Math.floor((left+right)/2)+1;
+	while(coba <= left+right)
+	{
+		if(arraystr[left] > arraystr[coba])
+		{
+			var big = arraystr[left];
+			var small = arraystr[coba];
+			arraystr[left] = small;
+			arraystr[coba] = big;
+			left++;
+		}
+		else
+		{
+			coba++;
+		}
+	}
+}
+
+function mergeSort(start,end)
+{
+	if(start<end)
+	{	
+		const mid = Math.floor((start+end)/2);
+		mergeSort(start,mid);
+		mergeSort(mid+1,end);
+	}
+	merge(start,end);
+}
+
+
 function bubbleSort()
 {
 	var i;
@@ -155,7 +187,10 @@ function selectionSort()
 function sortAscending()
 {
 	sortFlag=0;
-	insertionSort();
+	for(var i = 0; i < arraystr.length/2 ; i++)
+	{
+	mergeSort(0,(arraystr.length-1));
+	}
 	demo.innerHTML = arraystr.join("");
 }
 
