@@ -1,8 +1,8 @@
 <html>
 <body>
-<h1>Welcome to Penis Seer!</h1>
-<p>press this button if you brave enough!</p><br/>
-<button id="myButton" onclick="titit()"> BITCH PLEASE </button>
+<h1>Welcome to Random Number Generator!</h1>
+<p>press this button to generate!</p><br/>
+<button id="myButton" onclick="titit()"> Generate! </button>
 <div id="searchBar" style="visibility:hidden;">
 	<input type="text" placeholder="Search Penis Length" name="search" id="searchVal">
     <button type="submit" onclick = "searchNum()">FIND</button>
@@ -39,9 +39,9 @@ function titit()
 		shortest = length;
 	};
 	
-	var str = "HAHAHAHAHAHAHAHA YOUR PENISE SIZE IS "+length+" CENTIMETER!!";
+	var str = "Your random number is "+length;
 	
-	var str2 = "Longest Penis = "+longest+"cm"+"  Shortest Penis = "+shortest+"cm";
+	var str2 = "highest number = "+longest+"  lowest number = "+shortest;
 	
 	if(sortFlag==0)
 	{
@@ -89,24 +89,79 @@ function queuePop()
 }
 
 
+
+function quickSort(low,high)
+{
+	if(low < high)
+	{
+		var pi = quicky(low,high);
+		quickSort(low,pi-1);
+		quickSort(pi+1,high);
+	}
+}
+
+function quicky(low,high)
+{
+	var pivot = arraystr[high];
+	var i = low-1;
+	for(var j = low; j<= high-1; j++)
+	{
+		if(arraystr[j]<=pivot)
+		{	
+			i++;
+			var hi = arraystr[i];
+			arraystr[i]=arraystr[j];
+			arraystr[j]=hi;
+		}
+	}
+	var x = arraystr[i+1];
+	arraystr[i+1]=arraystr[high];
+	arraystr[high]=x;
+	return(i+1);
+}
+
+
+
 function merge(left,right)
 {
-	var coba = Math.floor((left+right)/2)+1;
-	while(coba <= left+right)
+	var mid = Math.floor((left+right)/2)+1;
+	var sorted = [];
+	var start = left;
+	var sortedIndex = left;
+	
+	for(var i = 0; i < arraystr.length; i++)
 	{
-		if(arraystr[left] > arraystr[coba])
+		sorted.push(arraystr[i]);
+	}
+	
+	while(mid <= right && left <= Math.floor((start+right)/2))
+	{
+		if(arraystr[left] <= arraystr[mid])
 		{
-			var big = arraystr[left];
-			var small = arraystr[coba];
-			arraystr[left] = small;
-			arraystr[coba] = big;
+			sorted[sortedIndex]=arraystr[left];
+			sortedIndex++;
 			left++;
 		}
 		else
 		{
-			coba++;
+			sorted[sortedIndex]=arraystr[mid];
+			sortedIndex++;
+			mid++;
 		}
 	}
+	while(mid <= right)
+	{
+		sorted[sortedIndex]=arraystr[mid];
+		sortedIndex++;
+		mid++;
+	}
+	while(left <= Math.floor((start+right)/2))
+	{
+		sorted[sortedIndex]=arraystr[left];
+		sortedIndex++;
+		left++;
+	}
+	arraystr = sorted;
 }
 
 function mergeSort(start,end)
@@ -187,10 +242,7 @@ function selectionSort()
 function sortAscending()
 {
 	sortFlag=0;
-	for(var i = 0; i < arraystr.length/2 ; i++)
-	{
 	mergeSort(0,(arraystr.length-1));
-	}
 	demo.innerHTML = arraystr.join("");
 }
 
@@ -198,7 +250,7 @@ function sortAscending()
 function sortDescending()
 {
 	sortFlag=1;
-	selectionSort();
+	quickSort(0,(arraystr.length-1));
 	arraystr.reverse();
 	demo.innerHTML = arraystr.join("");
 }
