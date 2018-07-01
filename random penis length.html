@@ -1,3 +1,340 @@
+<html>
+<body>
+<h1>Welcome to Random Number Generator!</h1>
+<p>press this button to generate!</p><br/>
+<button id="myButton" onclick="titit()"> Generate! </button>
+<div id="searchBar" style="visibility:hidden;">
+	<input type="text" placeholder="Search Penis Length" name="search" id="searchVal">
+    <button type="submit" onclick = "searchNum()">FIND</button>
+</div>
+<input type="text" placeholder="input palindrome" name="InputPalindrome" id="palindromeVal">
+<button type="submit" onclick = "isAlmostPalindrome()">test Palindrome</button>
+
+<button id="ascendingButton" onclick="sortAscending()" style="visibility:hidden;"> Ascending </button>
+<button id="descendingButton" onclick="sortDescending()" style="visibility:hidden;"> Descending </button>
+<button id="popButton" onclick="queuePop()" style="visibility:hidden;"> Pop! </button>
+<h2 id="record"></h2>
+<h1 id="demo"></h1>
+<h1 id="searchOut"></h1>
+
+<script>
+var longest = 0;
+var shortest = 10;
+var arraystr=[];
+var arraySrch=[];
+var demo=document.getElementById("demo");
+var searchOut=document.getElementById("searchOut");
+var sortFlag;
+
+function titit()
+{
+	var temp;
+	var length = Math.floor((Math.random()*9)+1);
+	var br = document.createElement("br");
+	
+	if(longest <= length)
+	{
+		longest = length;
+	};
+	 
+	if(shortest >= length)
+	{
+		shortest = length;
+	};
+	
+	var str = "Your random number is "+length;
+	
+	var str2 = "highest number = "+longest+"  lowest number = "+shortest;
+	
+	if(sortFlag==0)
+	{
+		bubbleSort();
+		sortFlag=3;
+	}
+	else if (sortFlag==1)
+	{
+		bubbleSort();
+		arraystr.reverse();
+		sortFlag=3;
+	}
+	
+	arraystr.push(str+'<br />');
+	
+	if(arraystr.length > 1)
+	{
+		var a=arraystr[arraystr.length-1];
+		for(var i = arraystr.length-1; i > 0; i--)
+		{
+			arraystr[i]=arraystr[i-1];
+		}
+		arraystr[0]=a;
+	}
+	arraystr.reverse();
+	demo.innerHTML = arraystr.join("");
+	arraystr.reverse();
+	
+	document.getElementById("record").innerHTML = str2;
+	demo.style.display='inline';
+	searchOut.style.display='none';
+	document.getElementById("ascendingButton").style.visibility='visible';
+	document.getElementById("descendingButton").style.visibility='visible';
+	document.getElementById("popButton").style.visibility='visible';
+	document.getElementById("searchBar").style.visibility='visible';
+}
+
+
+function queuePop()
+{
+	arraystr.splice(-1,1);
+	arraystr.reverse();
+	demo.innerHTML = arraystr.join("");
+	arraystr.reverse();
+}
+
+
+
+function quickSort(low,high)
+{
+	if(low < high)
+	{
+		var pi = quicky(low,high);
+		quickSort(low,pi-1);
+		quickSort(pi+1,high);
+	}
+}
+
+function quicky(low,high)
+{
+	var pivot = arraystr[high];
+	var i = low-1;
+	for(var j = low; j<= high-1; j++)
+	{
+		if(arraystr[j]<=pivot)
+		{	
+			i++;
+			var hi = arraystr[i];
+			arraystr[i]=arraystr[j];
+			arraystr[j]=hi;
+		}
+	}
+	var x = arraystr[i+1];
+	arraystr[i+1]=arraystr[high];
+	arraystr[high]=x;
+	return(i+1);
+}
+
+
+
+function merge(left,right)
+{
+	var mid = Math.floor((left+right)/2)+1;
+	var sorted = [];
+	var start = left;
+	var sortedIndex = left;
+	
+	for(var i = 0; i < arraystr.length; i++)
+	{
+		sorted.push(arraystr[i]);
+	}
+	
+	while(mid <= right && left <= Math.floor((start+right)/2))
+	{
+		if(arraystr[left] <= arraystr[mid])
+		{
+			sorted[sortedIndex]=arraystr[left];
+			sortedIndex++;
+			left++;
+		}
+		else
+		{
+			sorted[sortedIndex]=arraystr[mid];
+			sortedIndex++;
+			mid++;
+		}
+	}
+	while(mid <= right)
+	{
+		sorted[sortedIndex]=arraystr[mid];
+		sortedIndex++;
+		mid++;
+	}
+	while(left <= Math.floor((start+right)/2))
+	{
+		sorted[sortedIndex]=arraystr[left];
+		sortedIndex++;
+		left++;
+	}
+	arraystr = sorted;
+}
+
+function mergeSort(start,end)
+{
+	if(start<end)
+	{	
+		const mid = Math.floor((start+end)/2);
+		mergeSort(start,mid);
+		mergeSort(mid+1,end);
+	}
+	merge(start,end);
+}
+
+
+function bubbleSort()
+{
+	var i;
+	var j;
+	for (i = 0; i < arraystr.length-1; i++)      
+	{
+		for (j = 0; j < arraystr.length-i-1; j++) 
+		{
+		if (arraystr[j] > arraystr[j+1])
+			{
+				var a = arraystr[j];
+				var b = arraystr[j+1];
+				arraystr[j]=b;
+				arraystr[j+1]=a;
+			}
+		}
+	}
+}
+
+function insertionSort()
+{
+	var i;
+	var j;
+	var k;
+	for(i = 0; i < arraystr.length; i++)
+	{
+		for (j = 0; j < arraystr.length; j++)      
+		{
+			var temp = arraystr[j];
+			for (k = j - 1; k > -1 && arraystr[k] > arraystr[j]; k--) 
+			{
+				arraystr[k+1] = arraystr[k];
+			}
+			arraystr[k+1] = temp
+		}
+	}
+}
+
+function selectionSort()
+{
+	var minimal;
+	var i;
+	var j;
+	for(i = 0; i < arraystr.length; i++)
+	{
+		minimal = i;
+		for(j = i+1; j < arraystr.length; j++)
+		{
+			if(arraystr[j] < arraystr[minimal])
+			{
+				minimal = j;
+			}
+		}
+		if(i != minimal)
+		{
+			var a = arraystr[i];
+			var b = arraystr[minimal];
+			arraystr[i] = b;
+			arraystr[minimal] = a;
+		}
+	}
+}
+	
+function sortAscending()
+{
+	sortFlag=0;
+	mergeSort(0,(arraystr.length-1));
+	demo.innerHTML = arraystr.join("");
+}
+
+
+function sortDescending()
+{
+	sortFlag=1;
+	quickSort(0,(arraystr.length-1));
+	arraystr.reverse();
+	demo.innerHTML = arraystr.join("");
+}
+
+
+function searchNum()
+{
+	demo.style.display='none';
+	searchOut.style.display='inline';
+	document.getElementById("ascendingButton").style.visibility='hidden';
+	document.getElementById("descendingButton").style.visibility='hidden';
+	var input=document.getElementById("searchVal").value;
+	for(var i = 0; i < arraystr.length; i++)
+	{
+		if(arraystr[i].indexOf(input) != -1)
+		{
+			arraySrch.push(arraystr[i]);
+		}
+	}
+	searchOut.innerHTML = arraySrch.join("");
+	arraySrch = [];
+}
+
+
+function bs(arraystr,val)
+{
+	for (var i=0; i<arraystr.length ;i++)
+	{
+		if(arraystr[i]==val)
+		{
+			return i;
+		}
+	}
+	return(-1);
+}
+
+
+
+function callBS(val)
+{
+	var start = 0;
+	var end = arraystr.length-1;
+	binarySearch(start,end,val);
+}
+
+function binarySearch(start,end,val)
+{
+	var mid = Math.floor((start+end)/2);
+	if(arraystr[mid]==val)
+	{
+		return mid;
+	}
+	else if (start==end)
+	{
+		return(-1);
+	}
+	else if(arraystr[mid]<val)
+	{
+		return(binarySearch(mid+1,end,val));
+	}
+	else
+	{
+		return(binarySearch(start,mid-1,val));
+	}
+}
+
+
+
+function isPalindrome(arr)
+{
+	for(var i=0,j=(arr.legth-1); i<j; i++,j--)
+	{
+		if(arr[i]!=arr[j])
+		{
+			return(false);
+		}
+	}
+	return(true);
+}
+
+
 function isAlmostPalindrome()
 {
 	var arrPalindrome=[];
@@ -39,3 +376,8 @@ function isAlmostPalindrome()
 	demo.innerHTML = ("true");
 	return;
 }
+
+
+</script>
+</body>
+</html>
