@@ -16,6 +16,13 @@
 	<input type="text" placeholder="input end number" name="InputEnd" id="endVal">
 	<button type="submit" onclick = "evenDigit()">How many Even number?</button>
 </div>
+<div>
+	<input type="text" placeholder="input number" name="InputNumber" id="numberVal">
+	<button type="submit" onclick = "insertMinMax()">insert!</button>
+	<button type="submit" onclick = "removeMinMax()">remove!</button>
+	<button type="submit" onclick = "getMax()">Max!</button>
+	<button type="submit" onclick = "getMin()">Min!</button>
+</div>
 <button id="ascendingButton" onclick="sortAscending()" style="visibility:hidden;"> Ascending </button>
 <button id="descendingButton" onclick="sortDescending()" style="visibility:hidden;"> Descending </button>
 <button id="popButton" onclick="queuePop()" style="visibility:hidden;"> Pop! </button>
@@ -459,6 +466,63 @@ function evenDigit()
 	demo.innerHTML = even+" even number between "+start+" and "+end;
 	return;
 	
+}
+
+
+
+
+function insertMinMax()
+{
+	var input = document.getElementById("numberVal").value;
+	demo.style.display='inline';
+	
+	arraystr[arraystr.length]=input;
+}
+
+function removeMinMax()
+{
+	var input = document.getElementById("numberVal").value;
+	demo.style.display='inline';
+	
+	for(var i=0;i<arraystr.length;i++)
+	{
+		if(input==arraystr[i])
+		{
+			for(var j=i;j<arraystr.length-1;j++)
+			{
+				arraystr[j]=arraystr[j+1];
+			}
+		}
+	}
+	arraystr.pop();
+}
+
+function getMax()
+{
+	var max=0;
+	for(var i=0;i<arraystr.length;i++)
+	{
+		if(arraystr[i]>max)
+		{
+			max=arraystr[i];
+		}
+	}
+	demo.innerHTML = "max "+max;
+	return;
+}
+
+function getMin()
+{
+	var min=arraystr[0];
+	for(var i=1;i<arraystr.length;i++)
+	{
+		if(arraystr[i]<min)
+		{
+			min=arraystr[i];
+		}
+	}
+	demo.innerHTML = "min "+min;
+	return;
 }
 
 
