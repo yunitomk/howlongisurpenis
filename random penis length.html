@@ -7,9 +7,15 @@
 	<input type="text" placeholder="Search Penis Length" name="search" id="searchVal">
     <button type="submit" onclick = "searchNum()">FIND</button>
 </div>
-<input type="text" placeholder="input palindrome" name="InputPalindrome" id="palindromeVal">
-<button type="submit" onclick = "isAlmostPalindrome()">test Palindrome</button>
-
+<div>
+	<input type="text" placeholder="input palindrome" name="InputPalindrome" id="palindromeVal">
+	<button type="submit" onclick = "palindromeAble()">test Palindrome</button>
+</div>
+<div>
+	<input type="text" placeholder="input starting number" name="InputStart" id="startVal">
+	<input type="text" placeholder="input end number" name="InputEnd" id="endVal">
+	<button type="submit" onclick = "evenDigit()">How many Even number?</button>
+</div>
 <button id="ascendingButton" onclick="sortAscending()" style="visibility:hidden;"> Ascending </button>
 <button id="descendingButton" onclick="sortDescending()" style="visibility:hidden;"> Descending </button>
 <button id="popButton" onclick="queuePop()" style="visibility:hidden;"> Pop! </button>
@@ -375,7 +381,85 @@ function isAlmostPalindrome()
 	}
 	demo.innerHTML = ("true");
 	return;
-} 
+}
+
+
+
+function palindromeAble()
+{
+	var arrPalindrome=[];
+	var count=0;
+	var ganjil=0;
+	var jumlah=0;
+	arrPalindrome=document.getElementById("palindromeVal").value;
+	demo.style.display='inline';
+		
+	for(var i=0;i<arrPalindrome.length;i++)
+	{
+		for(var j=0;j<arrPalindrome.length;j++)
+		{
+			if(arrPalindrome[i]==arrPalindrome[j])
+			{
+				count++;
+			}
+		}
+		if(count%2==1)
+		{
+			ganjil++;
+			jumlah = count;
+		}
+		count=0;
+		if(ganjil>jumlah)
+		{
+			demo.innerHTML = arrPalindrome+" cannot be Palindrome";
+			return;
+		}
+	}
+	
+	
+	
+	demo.innerHTML = arrPalindrome+" can be Palindrome";
+	return;
+}
+
+
+
+function evenDigit()
+{
+	var start = document.getElementById("startVal").value;
+	var end = document.getElementById("endVal").value;
+	demo.style.display='inline';
+	
+	var added=0;
+	var even=0;
+	var temp=0;
+	
+	for(var i=start; i<=end; i++)
+	{
+		if(i>9)
+		{
+			temp=i;
+			while(temp)
+			{
+				added=added+(temp%10);
+				temp = Math.floor(temp/10);
+			}
+			
+		}
+		else
+		{
+			added=i;
+		}
+		if(added%2==0)
+		{
+			even++;
+		}
+		added=0;
+	}
+	demo.innerHTML = even+" even number between "+start+" and "+end;
+	return;
+	
+}
 
 
 </script>
