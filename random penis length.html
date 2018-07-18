@@ -18,10 +18,17 @@
 </div>
 <div>
 	<input type="text" placeholder="input number" name="InputNumber" id="numberVal">
-	<button type="submit" onclick = "insertMinMax()">insert!</button>
+	<button type="submit" onclick = "insertMinMax()" value="Submit">insert!</button>
 	<button type="submit" onclick = "removeMinMax()">remove!</button>
 	<button type="submit" onclick = "getMax()">Max!</button>
 	<button type="submit" onclick = "getMin()">Min!</button>
+	<button type="submit" onclick = "countTriplet()">How many Triplets?</button>
+	<button type="submit" onclick = "zigzag()">ZigZag</button>
+	<button type="submit" onclick = "longestContiguous()">How Long?</button>
+</div>
+<div>
+	<input type="text" placeholder="input text" name="InputReverse" id="reverseVal">
+	<button type="submit" onclick = "reverseNonSpecialChar()">Reverse!</button>
 </div>
 <button id="ascendingButton" onclick="sortAscending()" style="visibility:hidden;"> Ascending </button>
 <button id="descendingButton" onclick="sortDescending()" style="visibility:hidden;"> Descending </button>
@@ -492,14 +499,15 @@ function removeMinMax()
 			{
 				arraystr[j]=arraystr[j+1];
 			}
+			arraystr.length=arraystr.length-1;
+			return;
 		}
 	}
-	arraystr.pop();
 }
 
 function getMax()
 {
-	var max=0;
+	var max=-1;
 	for(var i=0;i<arraystr.length;i++)
 	{
 		if(arraystr[i]>max)
@@ -513,7 +521,7 @@ function getMax()
 
 function getMin()
 {
-	var min=arraystr[0];
+	var min=-1;
 	for(var i=1;i<arraystr.length;i++)
 	{
 		if(arraystr[i]<min)
@@ -525,6 +533,138 @@ function getMin()
 	return;
 }
 
+
+
+function reverseNonSpecialChar()
+{
+	var input = document.getElementById("reverseVal").value;
+	demo.style.display='inline';
+	
+	var temp=[];
+	var flag=-1;
+	var ascii;
+	
+	for(var i=0;i<input.length;i++)
+	{
+		ascii=input.charCodeAt(i);
+		if((ascii>=65 && ascii<=90)||(ascii>=97 && ascii<=122))
+		{
+			flag++;
+			temp[flag]=input[i];
+		}
+	}
+	for(var i=0;i<input.length;i++)
+	{
+		ascii=input.charCodeAt(i);
+		if((ascii>=65 && ascii<=90)||(ascii>=97 && ascii<=122))
+		{
+			input = input.substring(0,i)+temp[flag]+input.substr(i+1);
+			flag--;
+		}
+	}
+	demo.innerHTML = input;
+	return;
+}
+
+
+function countTriplet()
+{
+	var input = document.getElementById("numberVal").value;
+	demo.style.display='inline';
+	
+	var count=0;
+	var temp;
+	for(var i=0;i<arraystr.length;i++)
+	{
+		for(var j=i;j<arraystr.length;j++)
+		{
+			if(i!=j)
+			{
+				for(var k=j;k<arraystr.length;k++)
+				{
+					if(i!=k && j!=k)
+					{
+					console.log(i);
+					console.log(j);
+					console.log(k);
+						temp=Number(arraystr[i])+Number(arraystr[j])+Number(arraystr[k]);
+						//console.log(temp);
+						//console.log(input);
+						if(temp<input)
+						{
+							console.log("ya");
+							count++;
+						}
+					}
+				}
+			}
+		}
+	}
+	demo.innerHTML = count;
+	return;
+}
+
+
+
+
+function zigzag()
+{
+	var index=0;
+	var temp;
+	
+	while(index<arraystr.length)
+	{
+		if(arraystr[index]>arraystr[index+1])
+		{
+			temp=arraystr[index];
+			arraystr[index]=arraystr[index+1];
+			arraystr[index+1]=temp;
+		}
+		index++;
+		if(arraystr[index]<arraystr[index+1])
+		{
+			temp=arraystr[index];
+			arraystr[index]=arraystr[index+1];
+			arraystr[index+1]=temp;
+		}
+		index++;
+	}
+	demo.innerHTML = arraystr.join("");
+	return;
+}
+
+
+
+function longestContiguous()
+{
+	var max=1;
+	var count=1;
+	var temp;
+	
+	bubbleSort();
+	
+	for(var i=0; i<arraystr.length; i++)
+	{
+		count=1;
+		temp=Number(arraystr[i])
+		for(var j=0;j<arraystr.length;j++)
+		{
+			if(temp==Number(arraystr[j])-1)
+			{
+				temp=arraystr[j];
+				count++;
+				i=j-1;
+			}
+		}
+		if(count>max)
+		{
+			max=count;
+		}
+	}
+	
+	demo.innerHTML = max;
+	return;
+}
 
 </script>
 </body>
